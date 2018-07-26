@@ -1,7 +1,9 @@
 <template>
     <div class="home-wrap">
         <div class="top-block">
-            <div class="left-block"></div>
+            <div class="left-block">
+
+            </div>
             <div class="right-block"></div>
         </div>
         <div class="bottom-block">
@@ -10,11 +12,9 @@
                     <select class="select" >
                         <option v-bind:key="item" v-for="item in selectArr">{{item}}</option>
                     </select>
-                    <div class="click" @click="changeUi">Change chart</div>
                 </form>
-                <canvas id="mix" count="2"></canvas>
-                <chartjs-line target="mix"></chartjs-line>
-                <chartjs-bar :labels="mylabels" :datasets="mydatasets" target="mix"></chartjs-bar>
+                <bar-chart :data="dataChart" :height="330"></bar-chart>
+                <div class="click" @click="changeUi">Change chart</div>
             </div>
             <div class="inbox">
                 <header>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+    import Bar from '../Charts/Bar'
     export default {
         data(){
             return{
@@ -70,6 +71,7 @@
                         unread: false
                     }
                 ],
+                dataChart: [10, 39, 10, 40, 39, 0, 0],
                 selected: 'year',
                 selectArr: ['Year', 'Month', 'Week'],
                 attributes: [
@@ -95,47 +97,17 @@
                     weekdays: {
                         paddingTop: `25px`,
                     }
-                },
-                mylabels: ["1", "2", "3", "4", "5", "6", "7","8", "9", "10", "11", "12"],
-                mydatasets:[{
-                    label: "My First dataset",
-                    responsive:true,
-                    backgroundColor: [
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464'
-                    ],
-                    borderColor: [
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464',
-                        '#505464'
-                    ],
-                    borderWidth: 2,
-                    data: this.$store.state.data
-                }]
+                }
+            }
+        },
+        computed: {
+            chartData: function() {
+                return this.data;
             }
         },
         methods:{
             changeUi(){
-                this.$store.commit('changeChart')
+                this.data = [44, 21, 19, 53, 76, 14, 23, 53, 48, 54, 48, 62]
             },
             removeMessages(item){
                 item.unread=false;
@@ -144,6 +116,9 @@
                     this.message=true
                 }
             }
+        },
+        components:{
+            'bar-chart' : Bar
         }
     }
 </script>
