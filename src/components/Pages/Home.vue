@@ -13,7 +13,7 @@
                         <option v-bind:key="item" v-for="item in selectArr">{{item}}</option>
                     </select>
                 </form>
-                <bar-chart :data="dataChart" :height="330"></bar-chart>
+                <bar-chart :data="dataChart" :options="{responsive: true, maintainAspectRatio: false}"></bar-chart>
                 <div class="click" @click="changeUi">Change chart</div>
             </div>
             <div class="inbox">
@@ -71,7 +71,7 @@
                         unread: false
                     }
                 ],
-                dataChart: [10, 39, 10, 40, 39, 0, 0],
+                dataChart: [44, 49, 48, 49, 55, 47, 43, 55, 53, 43, 44, 51],
                 selected: 'year',
                 selectArr: ['Year', 'Month', 'Week'],
                 attributes: [
@@ -100,14 +100,9 @@
                 }
             }
         },
-        computed: {
-            chartData: function() {
-                return this.data;
-            }
-        },
         methods:{
             changeUi(){
-                this.data = [44, 21, 19, 53, 76, 14, 23, 53, 48, 54, 48, 62]
+                this.dataChart = [36, 46, 33, 35, 44, 36, 46, 43, 32, 65, 18, 46];
             },
             removeMessages(item){
                 item.unread=false;
