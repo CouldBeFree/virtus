@@ -9,12 +9,11 @@
         <div class="bottom-block">
             <div class="graph">
                 <form>
-                    <select class="select" >
+                    <select class="select" @change="changeHandler" v-model="selected">
                         <option v-bind:key="item" v-for="item in selectArr">{{item}}</option>
                     </select>
                 </form>
                 <bar-chart :data="dataChart" :options="{responsive: true, maintainAspectRatio: false}"></bar-chart>
-                <div class="click" @click="changeUi">Change chart</div>
             </div>
             <div class="inbox">
                 <header>
@@ -39,7 +38,6 @@
 </template>
 
 <script>
-    import Bar from '../Charts/Bar'
     export default {
         data(){
             return{
@@ -72,7 +70,7 @@
                     }
                 ],
                 dataChart: [44, 49, 48, 49, 55, 47, 43, 55, 53, 43, 44, 51],
-                selected: 'year',
+                selected: 'Year',
                 selectArr: ['Year', 'Month', 'Week'],
                 attributes: [
                     {
@@ -101,8 +99,16 @@
             }
         },
         methods:{
-            changeUi(){
-                this.dataChart = [36, 46, 33, 35, 44, 36, 46, 43, 32, 65, 18, 46];
+            changeHandler(){
+                let selected = this.selected;
+
+                if (selected === 'Month'){
+                    this.dataChart = [2, 12, 8, 22, 31, 6, 10, 32, 5, 36, 21, 21];
+                } else if (selected === 'Week') {
+                    this.dataChart = [8, 2, 18, 3, 13, 32, 10, 8, 12, 34, 21, 12];
+                } else if (selected === 'Year') {
+                    this.dataChart = [44, 49, 48, 49, 55, 47, 43, 55, 53, 43, 44, 51];
+                }
             },
             removeMessages(item){
                 item.unread=false;
@@ -111,9 +117,6 @@
                     this.message=true
                 }
             }
-        },
-        components:{
-            'bar-chart' : Bar
         }
     }
 </script>
