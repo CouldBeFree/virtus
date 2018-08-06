@@ -2,9 +2,22 @@
     <div class="home-wrap">
         <div class="top-block">
             <div class="left-block">
-
+                <line-chart></line-chart>
             </div>
-            <div class="right-block"></div>
+            <div class="right-block">
+                <div class="projects-card">
+                    <p class="top-text">Your projects</p>
+                    <ul>
+                        <li :key="item.id" v-for="item in projectsArr">
+                            <div class="project-type">{{item.project}}</div>
+                            <div class="project-description">
+                                <span>{{item.company}}</span>
+                                <span>{{item.projectPrice}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="bottom-block">
             <div class="graph">
@@ -13,7 +26,7 @@
                         <option v-bind:key="item" v-for="item in selectArr">{{item}}</option>
                     </select>
                 </form>
-                <bar-chart :data="dataChart" :options="{responsive: true, maintainAspectRatio: false}"></bar-chart>
+                <bar-chart :data="dataChart" :options="{responsive: true, legend: false, maintainAspectRatio: false}"></bar-chart>
             </div>
             <div class="inbox">
                 <header>
@@ -69,6 +82,32 @@
                         unread: false
                     }
                 ],
+                projectsArr: [
+                    {
+                        project: 'Mobile App',
+                        company: 'Symu.co',
+                        projectPrice: '$1500',
+                        id: 1
+                    },
+                    {
+                        project: 'New dashboard',
+                        company: 'Amazon.com',
+                        projectPrice: '$5500',
+                        id: 2
+                    },
+                    {
+                        project: 'Mobile App',
+                        company: 'Invest.ua',
+                        projectPrice: '$2000',
+                        id: 3
+                    },
+                    {
+                        project: 'Chatbot',
+                        company: 'Walmart.com',
+                        projectPrice: '$6000',
+                        id: 4
+                    },
+                ],
                 dataChart: [44, 49, 48, 49, 55, 47, 43, 55, 53, 43, 44, 51],
                 selected: 'Year',
                 selectArr: ['Year', 'Month', 'Week'],
@@ -123,6 +162,47 @@
 
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+
+    .projects-card{
+       .top-text{
+           text-align: center;
+           font-family: 'Montserrat', sans-serif;
+           font-size: 20px;
+           margin: 0;
+           padding: 20px 0;
+           color: white;
+           background: #3a3e52;
+       }
+
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background: #2f3242;
+
+            li{
+                height: 90px;
+                border-bottom: 1px solid #505464;
+                padding-left: 50px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                .project-type{
+                    color: white;
+                    margin-bottom: 5px;
+                }
+
+                .project-description{
+                    color: #858a9a;
+
+                    span{
+                        padding-right: 5px;
+                    }
+                }
+            }
+        }
+    }
 
     .inbox-holder{
         margin: 0;
@@ -188,6 +268,7 @@
     .home-wrap{
         padding: 30px;
         flex-basis: 100%;
+        background: #2a2c3b;
 
         .top-block{
             display: flex;
@@ -195,14 +276,12 @@
 
             .left-block{
                 flex-basis: 71%;
-                padding: 50px 0;
-                border: 1px solid black;
+                background: #2f3242;
             }
 
             .right-block{
                 flex-basis: 25%;
-                padding: 50px 0;
-                border: 1px solid black;
+                background: #2f3242;
             }
         }
 

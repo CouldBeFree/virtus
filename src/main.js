@@ -10,6 +10,7 @@ import Graph from './components/Pages/Graph'
 import Trello from './components/Pages/Trello'
 import Status from './components/Pages/Status'
 import Home from './components/Pages/Home'
+import Users from './components/Pages/Users'
 import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
 import store from './store/index'
@@ -28,6 +29,7 @@ Vue.use(VCalendar, {
 Vue.component('message', Message);
 Vue.component('graph', Graph);
 Vue.component('trello', Trello);
+Vue.component('users', Users);
 Vue.component('status', Status);
 Vue.component('Home', Home);
 Vue.component('bar-chart', {
@@ -64,7 +66,71 @@ Vue.component('bar-chart', {
             this.renderBarChart();
         }
     }
-})
+});
+Vue.component('line-chart', {
+    extends: VueChartJs.Line,
+    data: function () {
+        return {
+            datacollection: {
+                labels: ['MON', 'TUE', 'WED', 'THU', 'FRI'],
+                datasets: [
+                    {
+                        label: 'Data One',
+                        backgroundColor: '#2f3242',
+                        pointBackgroundColor: 'white',
+                        borderWidth: 4,
+                        pointBorderColor: '#249EBF',
+                        pointHitRadius: 10,
+                        pointRadius: 5,
+                        showLine: true,
+                        fill: '-2',
+                        borderColor: '#2196f3',
+                        data: [48, 20, 30, 50, 42]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItems, data) {
+                            return '$' + tooltipItems.yLabel;
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                height: 200
+            }
+        }
+    },
+    mounted () {
+        // this.chartData is created in the mixin
+        this.renderChart(this.datacollection, this.options)
+    }
+});
 
 new Vue({
   render: h => h(App),

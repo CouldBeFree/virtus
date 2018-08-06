@@ -4,6 +4,7 @@ import Graph from '../components/Pages/Graph'
 import Trello from '../components/Pages/Trello'
 import Status from '../components/Pages/Status'
 import Home from '../components/Pages/Home'
+import Users from '../components/Pages/Users'
 import Login from '../components/Pages/Login'
 import Registration from '../components/Pages/Registration'
 
@@ -18,6 +19,11 @@ export default new Router({
             path: '/status',
             name: 'Status',
             component: Status
+        },
+        {
+            path: '/users',
+            name: 'Users',
+            component: Users
         },
         {
             path: '/trello',

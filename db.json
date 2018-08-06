@@ -10,5 +10,39 @@
       "password": "spartasa12",
       "id": 2
     }
+  ],
+  "lists": [
+    {
+      "firstName": "Sasha",
+      "secondName": "Zoria",
+      "companyName": "F5",
+      "cityName": "Cherkassy",
+      "phoneNumber": "12-31231",
+      "id": 1
+    },
+    {
+      "firstName": "Alesya",
+      "secondName": "Simon",
+      "companyName": "Everlabs",
+      "cityName": "Cherkassy",
+      "phoneNumber": "01298312",
+      "id": 2
+    },
+    {
+      "firstName": "Zlata",
+      "secondName": "Zoria",
+      "companyName": "Amazon",
+      "cityName": "California",
+      "phoneNumber": "9181341134",
+      "id": 3
+    },
+    {
+      "firstName": "Vlad",
+      "secondName": "Zagorodniy",
+      "companyName": "F5",
+      "cityName": "Cherkassy",
+      "phoneNumber": "093249012",
+      "id": 4
+    }
   ]
 }

@@ -19,6 +19,9 @@
               <router-link :to="'/'"><span class="icon-home"></span></router-link>
             </li>
             <li>
+              <router-link :to="'/users'"><span class="icon-list"></span></router-link>
+            </li>
+            <li>
               <router-link :to="'/trello'"><span class="icon-group"></span></router-link>
             </li>
             <li>
@@ -102,7 +105,6 @@
     background: #2e3141;
     padding-left: 20px;
     flex-basis: 55px;
-    height: 100%;
 
     .links-holder{
       margin: 0;
@@ -141,7 +143,7 @@
 
   .wrapper{
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
   }
 
 </style>
