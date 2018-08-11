@@ -10,7 +10,14 @@
             <li></li>
         </ul>
         <div class="popup" v-if="popup">
-            Delete
+            <p class="delete item" @click="deleteHandler(index)">Delete</p>
+            <p class="top">Move to</p>
+            <hr>
+            <p class="item" @click="quenedMove(item)">Quened</p>
+            <p class="item" @click="designMove(item)">Design</p>
+            <p class="item" @click="devMove(item)">Development</p>
+            <p class="item" @click="devTest(item)">Testing</p>
+            <p class="item" @click="completedMove(item)">Completed</p>
         </div>
     </li>
 </template>
@@ -18,10 +25,30 @@
 <script>
     export default {
         name: "Card-planning",
-        props: ['item'],
+        props: ['item', 'index'],
         data () {
             return {
                 popup: false
+            }
+        },
+        methods: {
+            deleteHandler(obj){
+                this.$emit('current-item', obj);
+            },
+            quenedMove(obj){
+                this.$emit('cur-quened', obj)
+            },
+            designMove(obj){
+                this.$emit('cur-des', obj)
+            },
+            devMove(obj){
+                this.$emit('development-move', obj)
+            },
+            devTest(obj){
+                this.$emit('dev-test', obj)
+            },
+            completedMove(obj){
+                this.$emit('compl-move', obj)
             }
         }
     }
@@ -50,7 +77,28 @@
         .popup{
             position: absolute;
             background: white;
-            cursor: pointer;
+            z-index: 1;
+            right: 0;
+            padding: 5px;
+            border-radius: 2px;
+
+            .item{
+                cursor: pointer;
+                padding: 0;
+                margin: 0;
+            }
+
+            .top{
+                margin: 0;
+            }
+
+            hr{
+                margin: 3px 0;
+            }
+
+            .delete{
+                color: red;
+            }
         }
 
         &-item{

@@ -43,7 +43,18 @@
                 </div>
                 <draggable element="span" v-model="planningArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <cardPlanning :item="element" v-for="element in planningArr" :key="element.id"></cardPlanning>
+                        <cardPlanning
+                                :item="element"
+                                v-for="(element, index) in planningArr"
+                                :index="index"
+                                :key="element.id"
+                                @compl-move="complMove($event)"
+                                @dev-test="testingMove($event)"
+                                @development-move="moveDev($event)"
+                                @cur-quened="moveQue($event)"
+                                @cur-des="moveDesign($event)"
+                                @current-item="deletePlanning($event)">
+                        </cardPlanning>
                     </transition-group>
                 </draggable>
             </div>
@@ -60,7 +71,19 @@
                 </div>
                 <draggable element="span" v-model="designArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <cardDesign :item="element" v-for="element in designArr" :key="element.id"></cardDesign>
+                        <cardDesign
+                                :item="element"
+                                :index="index"
+                                v-for="(element, index) in designArr"
+                                :key="element.id"
+                                @compl-shift="completedShift($event)"
+                                @test-move="testShift($event)"
+                                @move-develop="developMove($event)"
+                                @move-plan="planMove($event)"
+                                @move-quened="quenedMove($event)"
+                                @delete-item="deleteDesign($event)"
+                        >
+                        </cardDesign>
                     </transition-group>
                 </draggable>
             </div>
@@ -77,7 +100,16 @@
                 </div>
                 <draggable element="span" v-model="developmentArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <cardDevelopment :item="element" v-for="element in developmentArr" :key="element.id"></cardDevelopment>
+                        <cardDevelopment
+                                :item="element"
+                                :index="index"
+                                v-for="(element, index) in developmentArr"
+                                :key="element.id"
+                                @move-design="toDesign($event)"
+                                @move-planning="toPlan($event)"
+                                @delete-dev="deleteDev($event)"
+                                @moveto-quened="quenedTo($event)"
+                        ></cardDevelopment>
                     </transition-group>
                 </draggable>
             </div>
@@ -271,6 +303,142 @@
             },
             orderList () {
                 this.list = this.list.sort((one,two) =>{return one.order-two.order; })
+            },
+            toDesign(item){
+                this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
+                this.designArr.push(item);
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.devCheck(); // dev check
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+            },
+            toPlan(item){
+                this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
+                this.planningArr.push(item);
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.devCheck(); // dev check
+            },
+            deleteDev(item){
+                this.developmentArr.splice(item, 1);
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.devCheck();
+            },
+            quenedTo(item){
+                this.developmentArr.splice(this.planningArr.indexOf(item), 1);
+                this.quened.push(item);
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+                this.devCheck();
+            },
+            completedShift(item){
+                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.completedArr.push(item);
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.designCheck(); // design check
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+            },
+            testShift(item){
+                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.testingArr.push(item);
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.designCheck(); // design check
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+            },
+            developMove(item){
+                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.developmentArr.push(item);
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.designCheck(); // design check
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+            },
+            planMove(item){
+                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.planningArr.push(item);
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.designCheck(); // design check
+                this.pricesSum(); // planning $
+                this.checkArr(); // check
+                this.cardsCount(); // planning count
+            },
+            quenedMove(item){
+                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.quened.push(item);
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.designCheck();
+                this.pricesTotal(); //quened $
+                this.quenedCount()
+            },
+            deleteDesign(item){
+                this.designArr.splice(item, 1);
+                this.designCheck();
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+            },
+            complMove(item){
+                this.planningArr.splice(this.planningArr.indexOf(item), 1);
+                this.completedArr.push(item);
+                this.pricesSum(); // planning $
+                this.checkArr(); // check
+                this.cardsCount(); // planning count
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+            },
+            testingMove(item){
+                this.planningArr.splice(this.planningArr.indexOf(item), 1);
+                this.testingArr.push(item);
+                this.pricesSum(); // planning $
+                this.checkArr(); // check
+                this.cardsCount(); // planning count
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+            },
+            moveDev(item){
+                this.planningArr.splice(this.planningArr.indexOf(item), 1);
+                this.developmentArr.push(item);
+                this.pricesSum(); // planning $
+                this.checkArr(); // check
+                this.cardsCount(); // planning count
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev price
+            },
+            moveDesign(item){
+                this.planningArr.splice(this.planningArr.indexOf(item), 1);
+                this.designArr.push(item);
+                this.pricesSum(); // planning $
+                this.checkArr(); // check
+                this.cardsCount(); // planning count
+                this.designPriceCount();
+                this.designCount();
+            },
+            moveQue(item){
+              this.planningArr.splice(this.planningArr.indexOf(item), 1);
+              this.quened.push(item);
+              this.pricesSum(); // planning $
+              this.checkArr(); // check
+              this.cardsCount(); // planning count
+              this.pricesTotal(); //quened $
+              this.quenedCount()
+            },
+            deletePlanning(item){
+                this.planningArr.splice(item, 1);
+                this.cardsCount();
+                this.checkArr();
+                this.pricesSum();
             },
             indexHandler(item){
                 this.quened.splice(item, 1);
