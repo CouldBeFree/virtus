@@ -10,6 +10,7 @@ import Graph from './components/Pages/Graph'
 import Trello from './components/Pages/Trello'
 import Status from './components/Pages/Status'
 import Home from './components/Pages/Home'
+//import Card from './components/Trello/Card-quened'
 import Users from './components/Pages/Users'
 import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
@@ -32,6 +33,7 @@ Vue.component('trello', Trello);
 Vue.component('users', Users);
 Vue.component('status', Status);
 Vue.component('Home', Home);
+//Vue.component('Card', Card);
 Vue.component('bar-chart', {
     extends: VueChartJs.Bar,
     // mixins: [reactiveProp],

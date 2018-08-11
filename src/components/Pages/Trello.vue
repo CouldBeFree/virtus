@@ -4,7 +4,6 @@
             <div>All projects ({{this.quenedTot + this.planningArrLength + this.designObj + this.developObj + this.testingObj + this.completedObj}}) <span>Workflow</span></div>
         </div>
         <div class="list-holder">
-
             <div class="wrapper-list">
                 <div class="top-part">
                     <div class="top-part__name">
@@ -17,21 +16,17 @@
                 </div>
                 <draggable class="list-group" element="ul" v-model="quened" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group type="transition" :name="'flip-list'">
-                        <li class="list-group-item" v-for="element in quened" :key="element.id">
-                            <i :class="element.fixed ? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
-                            <div class="project">
-                                {{element.project}}
-                            </div>
-                            <div class="project-description">{{element.client}} {{element.price}}$</div>
-                            <ul class="dots-holder" @click="popup=!popup">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                            <div class="popup" v-if="popup">
-                                Delete
-                            </div>
-                        </li>
+                        <cardQuened
+                                @current-test="testMove($event)"
+                                @current-item="indexHandler($event)"
+                                @current-dev="devMove($event)"
+                                @current-design="designMove($event)"
+                                @current-planning="indexPlanning($event)"
+                                @curr-completed="completedMove($event)"
+                                :item="element"
+                                :index="index"
+                                v-for="(element, index) in quened"
+                                :key="element.id"></cardQuened>
                     </transition-group>
                 </draggable>
             </div>
@@ -48,18 +43,7 @@
                 </div>
                 <draggable element="span" v-model="planningArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <li class="list-group-item" v-for="element in planningArr" :key="element.id">
-                            <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
-                            <div class="project">
-                                {{element.project}}
-                            </div>
-                            <div class="project-description">{{element.client}} {{element.price}}$</div>
-                            <ul class="dots-holder">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </li>
+                        <cardPlanning :item="element" v-for="element in planningArr" :key="element.id"></cardPlanning>
                     </transition-group>
                 </draggable>
             </div>
@@ -76,18 +60,7 @@
                 </div>
                 <draggable element="span" v-model="designArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <li class="list-group-item" v-for="element in designArr" :key="element.id">
-                            <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
-                            <div class="project">
-                                {{element.project}}
-                            </div>
-                            <div class="project-description">{{element.client}} {{element.price}}$</div>
-                            <ul class="dots-holder">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </li>
+                        <cardDesign :item="element" v-for="element in designArr" :key="element.id"></cardDesign>
                     </transition-group>
                 </draggable>
             </div>
@@ -104,18 +77,7 @@
                 </div>
                 <draggable element="span" v-model="developmentArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <li class="list-group-item" v-for="element in developmentArr" :key="element.id">
-                            <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
-                            <div class="project">
-                                {{element.project}}
-                            </div>
-                            <div class="project-description">{{element.client}} {{element.price}}$</div>
-                            <ul class="dots-holder">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </li>
+                        <cardDevelopment :item="element" v-for="element in developmentArr" :key="element.id"></cardDevelopment>
                     </transition-group>
                 </draggable>
             </div>
@@ -132,18 +94,7 @@
                 </div>
                 <draggable element="span" v-model="testingArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <li class="list-group-item" v-for="element in testingArr" :key="element.id">
-                            <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
-                            <div class="project">
-                                {{element.project}}
-                            </div>
-                            <div class="project-description">{{element.client}} {{element.price}}$</div>
-                            <ul class="dots-holder">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </li>
+                        <cardTesting :item="element" v-for="element in testingArr" :key="element.id"></cardTesting>
                     </transition-group>
                 </draggable>
             </div>
@@ -160,18 +111,7 @@
                 </div>
                 <draggable element="span" v-model="completedArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <li class="list-group-item" v-for="element in completedArr" :key="element.id">
-                            <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
-                            <div class="project">
-                                {{element.project}}
-                            </div>
-                            <div class="project-description">{{element.client}} {{element.price}}$</div>
-                            <ul class="dots-holder">
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </li>
+                        <cardTesting :item="element" v-for="element in completedArr" :key="element.id"></cardTesting>
                     </transition-group>
                 </draggable>
             </div>
@@ -181,15 +121,30 @@
 </template>
 
 <script>
+
     import draggable from 'vuedraggable'
+    import cardQuened from '../Trello/Card-quened'
+    import cardPlanning from '../Trello/Card-planning'
+    import cardDesign from '../Trello/Card-design'
+    import cardDevelopment from '../Trello/Card-development'
+    import cardTesting from '../Trello/Card-testing'
+    import cardCompleted from '../Trello/Card-completed'
+
     export default {
         name: "Trello",
         components: {
             draggable,
+            cardQuened,
+            cardPlanning,
+            cardDesign,
+            cardDevelopment,
+            cardTesting,
+            cardCompleted
         },
         data () {
             return {
                 popup: false,
+                quenedIndex: 0,
                 quened: [
                     {
                         project: 'AI development',
@@ -316,6 +271,60 @@
             },
             orderList () {
                 this.list = this.list.sort((one,two) =>{return one.order-two.order; })
+            },
+            indexHandler(item){
+                this.quened.splice(item, 1);
+                this.quenedCount();
+                this.pricesTotal();
+            },
+            indexPlanning(item){
+                this.quened.splice(this.quened.indexOf(item), 1);
+                this.planningArr.push(item);
+                this.cardsCount();
+                this.quenedCount();
+                this.pricesTotal();
+                this.pricesSum();
+                this.quenedCheck();
+            },
+            designMove(item){
+                this.quened.splice(this.quened.indexOf(item), 1);
+                this.designArr.push(item);
+                this.cardsCount();
+                this.quenedCount();
+                this.designCount();
+                this.designPriceCount();
+                this.pricesTotal();
+                this.quenedCheck();
+            },
+            devMove(item){
+                this.quened.splice(this.quened.indexOf(item), 1);
+                this.developmentArr.push(item);
+                this.cardsCount();
+                this.quenedCount();
+                this.developmentCount();
+                this.developmentPriceCount();
+                this.pricesTotal();
+                this.quenedCheck();
+            },
+            testMove(item){
+                this.quened.splice(this.quened.indexOf(item), 1);
+                this.testingArr.push(item);
+                this.cardsCount();
+                this.quenedCount();
+                this.testingCount();
+                this.testingPriceCount();
+                this.pricesTotal();
+                this.quenedCheck();
+            },
+            completedMove(item){
+                this.quened.splice(this.quened.indexOf(item), 1);
+                this.completedArr.push(item);
+                this.cardsCount();
+                this.quenedCount();
+                this.completedCount();
+                this.completedPriceCount();
+                this.pricesTotal();
+                this.quenedCheck();
             },
             onMove ({relatedContext, draggedContext}) {
                 const relatedElement = relatedContext.element;
