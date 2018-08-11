@@ -1,5 +1,8 @@
 <template>
     <div class="trello-wrap">
+        <div class="top-part-page">
+            <div>All projects ({{this.quenedTot + this.planningArrLength + this.designObj + this.developObj + this.testingObj + this.completedObj}}) <span>Workflow</span></div>
+        </div>
         <div class="list-holder">
 
             <div class="wrapper-list">
@@ -15,11 +18,19 @@
                 <draggable class="list-group" element="ul" v-model="quened" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group type="transition" :name="'flip-list'">
                         <li class="list-group-item" v-for="element in quened" :key="element.id">
-                            <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
+                            <i :class="element.fixed ? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'" @click=" element.fixed=! element.fixed" aria-hidden="true"></i>
                             <div class="project">
                                 {{element.project}}
                             </div>
                             <div class="project-description">{{element.client}} {{element.price}}$</div>
+                            <ul class="dots-holder" @click="popup=!popup">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <div class="popup" v-if="popup">
+                                Delete
+                            </div>
                         </li>
                     </transition-group>
                 </draggable>
@@ -43,6 +54,11 @@
                                 {{element.project}}
                             </div>
                             <div class="project-description">{{element.client}} {{element.price}}$</div>
+                            <ul class="dots-holder">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
                         </li>
                     </transition-group>
                 </draggable>
@@ -66,6 +82,11 @@
                                 {{element.project}}
                             </div>
                             <div class="project-description">{{element.client}} {{element.price}}$</div>
+                            <ul class="dots-holder">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
                         </li>
                     </transition-group>
                 </draggable>
@@ -89,6 +110,11 @@
                                 {{element.project}}
                             </div>
                             <div class="project-description">{{element.client}} {{element.price}}$</div>
+                            <ul class="dots-holder">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
                         </li>
                     </transition-group>
                 </draggable>
@@ -112,6 +138,11 @@
                                 {{element.project}}
                             </div>
                             <div class="project-description">{{element.client}} {{element.price}}$</div>
+                            <ul class="dots-holder">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
                         </li>
                     </transition-group>
                 </draggable>
@@ -135,6 +166,11 @@
                                 {{element.project}}
                             </div>
                             <div class="project-description">{{element.client}} {{element.price}}$</div>
+                            <ul class="dots-holder">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
                         </li>
                     </transition-group>
                 </draggable>
@@ -153,6 +189,7 @@
         },
         data () {
             return {
+                popup: false,
                 quened: [
                     {
                         project: 'AI development',
@@ -253,7 +290,7 @@
                         client: 'Amazon',
                         fixed: false,
                         price: 3500,
-                        id: 8421
+                        id: 821
                     }
                 ],
                 planningTot: 0,
@@ -274,6 +311,9 @@
             }
         },
         methods:{
+            popupToggle(e){
+                console.log(e.target);
+            },
             orderList () {
                 this.list = this.list.sort((one,two) =>{return one.order-two.order; })
             },
@@ -303,9 +343,9 @@
                 }
             },
             designCheck(){
-              if(this.designArr.length === 0){
-                  this.designTot = 0
-              }
+                if(this.designArr.length === 0){
+                    this.designTot = 0
+                }
             },
             devCheck(){
                 if(this.developmentArr.length === 0){
@@ -425,6 +465,25 @@
         flex-basis: 100%;
         padding: 45px;
         overflow-x: scroll;
+        position: relative;
+    }
+
+    .top-part-page{
+        background: #237cc7;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: block;
+        width: 100%;
+        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+        padding: 20px 0 20px 45px;
+
+        span{
+            color: white;
+            padding-left: 30px;
+        }
     }
 
     .wrapper-list{
@@ -470,6 +529,7 @@
 
     .list-holder{
         display: flex;
+        margin-top: 40px;
     }
     .flip-list-move {
         transition: transform 0.5s;
@@ -487,6 +547,7 @@
         list-style-type: none;
         margin-right: 20px;
         width: 250px;
+        position: relative;
 
         &-item{
             cursor: move;
@@ -494,6 +555,31 @@
             padding: 28px 23px;
             background: #3a3e52;
             border-radius: 5px;
+            position: relative;
+
+            .dots-holder{
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+                list-style-type: none;
+                right: 20px;
+                bottom: 35px;
+
+                li{
+                    width: 5px;
+                    height: 5px;
+                    background: #9ea3b4;
+                    border-color: #9ea3b4;
+                    border-radius: 50%;
+
+                    &:not(:last-child){
+                        margin-bottom: 5px;
+                    }
+                }
+            }
 
             i{
                 cursor: pointer;
