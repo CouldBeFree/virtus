@@ -105,6 +105,8 @@
                                 :index="index"
                                 v-for="(element, index) in developmentArr"
                                 :key="element.id"
+                                @compl-move="toCompleted($event)"
+                                @test-move="toTest($event)"
                                 @move-design="toDesign($event)"
                                 @move-planning="toPlan($event)"
                                 @delete-dev="deleteDev($event)"
@@ -126,7 +128,18 @@
                 </div>
                 <draggable element="span" v-model="testingArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <cardTesting :item="element" v-for="element in testingArr" :key="element.id"></cardTesting>
+                        <cardTesting
+                                :item="element"
+                                v-for="(element, index) in testingArr"
+                                :key="element.id"
+                                :index="index"
+                                @to-completed="complShift($event)"
+                                @to-dev="devShift($event)"
+                                @to-design="designShift($event)"
+                                @to-plan="planShift($event)"
+                                @toenque="enqueHandler($event)"
+                                @delete-test="deleteTest($event)"
+                        ></cardTesting>
                     </transition-group>
                 </draggable>
             </div>
@@ -143,7 +156,18 @@
                 </div>
                 <draggable element="span" v-model="completedArr" :options="dragOptions" :move="onMove" @start="isDragging=true" @end="isDragging=false">
                     <transition-group name="no" class="list-group" tag="ul" :name="'flip-list'">
-                        <cardTesting :item="element" v-for="element in completedArr" :key="element.id"></cardTesting>
+                        <cardCompleted
+                                :item="element"
+                                v-for="(element, index) in completedArr"
+                                :index="index"
+                                :key="element.id"
+                                @test-shift="toTestShift($event)"
+                                @development-shift="toDevShift($event)"
+                                @design-shift="toDesignShift($event)"
+                                @planningShift="toPlanning($event)"
+                                @quenedShift="toQuened($event)"
+                                @delete-compl="completedDelete($event)"
+                        ></cardCompleted>
                     </transition-group>
                 </draggable>
             </div>
@@ -304,6 +328,126 @@
             orderList () {
                 this.list = this.list.sort((one,two) =>{return one.order-two.order; })
             },
+            toTestShift(item){
+                this.completedArr.splice(this.completedArr.indexOf(item), 1);
+                this.testingArr.push(item);
+                this.completedCheck(); // compl
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+            },
+            toDevShift(item){
+                this.completedArr.splice(this.completedArr.indexOf(item), 1);
+                this.developmentArr.push(item);
+                this.completedCheck(); // compl
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+            },
+            toDesignShift(item){
+                this.completedArr.splice(this.completedArr.indexOf(item), 1);
+                this.designArr.push(item);
+                this.completedCheck(); // compl
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+            },
+            toPlanning(item){
+                this.completedArr.splice(this.completedArr.indexOf(item), 1);
+                this.planningArr.push(item);
+                this.completedCheck(); // compl
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+            },
+            toQuened(item){
+                this.completedArr.splice(this.completedArr.indexOf(item), 1);
+                this.quened.push(item);
+                this.completedCheck(); // compl
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+            },
+            completedDelete(item){
+                this.completedArr.splice(item, 1);
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.completedCheck();
+            },
+            complShift(item){
+                this.testingArr.splice(this.testingArr.indexOf(item), 1);
+                this.completedArr.push(item);
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+                this.testCheck(); // test
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+            },
+            devShift(item){
+                this.testingArr.splice(this.testingArr.indexOf(item), 1);
+                this.developmentArr.push(item);
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+                this.testCheck(); // test
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+            },
+            designShift(item){
+                this.testingArr.splice(this.testingArr.indexOf(item), 1);
+                this.designArr.push(item);
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+                this.testCheck(); // test
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+            },
+            planShift(item){
+                this.testingArr.splice(this.testingArr.indexOf(item), 1);
+                this.planningArr.push(item);
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+                this.testCheck(); // test
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+            },
+            enqueHandler(item){
+                this.testingArr.splice(this.testingArr.indexOf(item), 1);
+                this.quened.push(item);
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+                this.testCheck(); // test
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+            },
+            deleteTest(item){
+                this.testingArr.splice(item, 1);
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+                this.testCheck(); // test check
+            },
+            toCompleted(item){
+                this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
+                this.completedArr.push(item);
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.devCheck(); // dev check
+                this.completedCount();
+                this.completedPriceCount();
+            },
+            toTest(item){
+                this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
+                this.testingArr.push(item);
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.devCheck(); // dev check
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+            },
             toDesign(item){
                 this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
                 this.designArr.push(item);
@@ -329,7 +473,7 @@
                 this.devCheck();
             },
             quenedTo(item){
-                this.developmentArr.splice(this.planningArr.indexOf(item), 1);
+                this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
                 this.quened.push(item);
                 this.developmentCount(); // dev count
                 this.developmentPriceCount(); // dev $
@@ -338,7 +482,7 @@
                 this.devCheck();
             },
             completedShift(item){
-                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.designArr.splice(this.designArr.indexOf(item), 1);
                 this.completedArr.push(item);
                 this.designCount(); // design count
                 this.designPriceCount(); // design price
@@ -347,7 +491,7 @@
                 this.completedPriceCount(); // completed $
             },
             testShift(item){
-                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.designArr.splice(this.designArr.indexOf(item), 1);
                 this.testingArr.push(item);
                 this.designCount(); // design count
                 this.designPriceCount(); // design price
@@ -356,7 +500,7 @@
                 this.testingCount(); // testing count
             },
             developMove(item){
-                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.designArr.splice(this.designArr.indexOf(item), 1);
                 this.developmentArr.push(item);
                 this.designCount(); // design count
                 this.designPriceCount(); // design price
@@ -365,7 +509,7 @@
                 this.developmentPriceCount(); // dev $
             },
             planMove(item){
-                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.designArr.splice(this.designArr.indexOf(item), 1);
                 this.planningArr.push(item);
                 this.designCount(); // design count
                 this.designPriceCount(); // design price
@@ -375,7 +519,7 @@
                 this.cardsCount(); // planning count
             },
             quenedMove(item){
-                this.designArr.splice(this.planningArr.indexOf(item), 1);
+                this.designArr.splice(this.designArr.indexOf(item), 1);
                 this.quened.push(item);
                 this.designCount(); // design count
                 this.designPriceCount(); // design price

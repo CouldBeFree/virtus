@@ -16,8 +16,8 @@
             <p class="item" @click="quenedMove(item)">Quened</p>
             <p class="item" @click="planMove(item)">Planning</p>
             <p class="item" @click="designMove(item)">Design</p>
-            <p class="item">Testing</p>
-            <p class="item">Completed</p>
+            <p class="item" @click="testMove(item)">Testing</p>
+            <p class="item" @click="completedMove(item)">Completed</p>
         </div>
     </li>
 </template>
@@ -36,13 +36,19 @@
                 this.$emit('delete-dev', obj);
             },
             quenedMove(obj){
-                this.$emit('moveto-quened', obj)
+                this.$emit('moveto-quened', obj);
             },
             planMove(obj){
-                this.$emit('move-planning', obj)
+                this.$emit('move-planning', obj);
             },
             designMove(obj){
-                this.$emit('move-design', obj)
+                this.$emit('move-design', obj);
+            },
+            testMove(obj){
+                this.$emit('test-move', obj);
+            },
+            completedMove(obj){
+                this.$emit('compl-move', obj)
             }
         }
     }
