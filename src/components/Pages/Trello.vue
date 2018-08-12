@@ -1,7 +1,9 @@
 <template>
     <div class="trello-wrap">
         <div class="top-part-page">
-            <div>All projects ({{this.quenedTot + this.planningArrLength + this.designObj + this.developObj + this.testingObj + this.completedObj}}) <span>Workflow</span></div>
+            <div>All projects ({{this.projTotal}}) <span>Workflow</span></div>
+            <button @click="filterTesla">Filter Tesla</button>
+            <button @click="filterAmazon">Filter Amazon</button>
         </div>
         <div class="list-holder">
             <div class="wrapper-list">
@@ -200,7 +202,7 @@
         data () {
             return {
                 popup: false,
-                quenedIndex: 0,
+                projTotal: 0,
                 quened: [
                     {
                         project: 'AI development',
@@ -211,14 +213,14 @@
                     },
                     {
                         project: 'Blockchain integration',
-                        client: 'BWM',
+                        client: 'Tesla',
                         fixed: false,
                         price: 2500,
                         id: 112
                     },
                     {
                         project: 'Chatbot',
-                        client: 'T-Mobile',
+                        client: 'Amazon',
                         fixed: false,
                         price: 6500,
                         id: 13
@@ -266,7 +268,7 @@
                     },
                     {
                         project: 'Dashboard',
-                        client: 'Standart Oil',
+                        client: 'Tesla',
                         fixed: false,
                         price: 5500,
                         id: 1114
@@ -328,6 +330,31 @@
             orderList () {
                 this.list = this.list.sort((one,two) =>{return one.order-two.order; })
             },
+            filterTesla(){
+                this.quened = this.quened.filter(item => item.client === 'Tesla');
+                this.planningArr = this.planningArr.filter(item => item.client === 'Tesla');
+                this.designArr = this.designArr.filter(item => item.client === 'Tesla');
+                this.developmentArr = this.developmentArr.filter(item => item.client === 'Tesla');
+                this.testingArr = this.testingArr.filter(item => item.client === 'Tesla');
+                this.completedArr = this.completedArr.filter(item => item.client === 'Tesla');
+            },
+            filterAmazon(){
+                this.quened = this.quened.filter(item => item.client === 'Amazon');
+                this.planningArr = this.planningArr.filter(item => item.client === 'Amazon');
+                this.designArr = this.designArr.filter(item => item.client === 'Amazon');
+                this.developmentArr = this.developmentArr.filter(item => item.client === 'Amazon');
+                this.testingArr = this.testingArr.filter(item => item.client === 'Amazon');
+                this.completedArr = this.completedArr.filter(item => item.client === 'Amazon');
+            },
+            arrayTotal(){
+                let quenedArr = this.quened.length;
+                let planningTot = this.planningArr.length;
+                let designTot = this.designArr.length;
+                let developmentTot = this.developmentArr.length;
+                let testingTot = this.testingArr.length;
+                let completedTot = this.completedArr.length;
+                this.projTotal = quenedArr + planningTot + designTot + developmentTot + testingTot + completedTot;
+            },
             toTestShift(item){
                 this.completedArr.splice(this.completedArr.indexOf(item), 1);
                 this.testingArr.push(item);
@@ -378,6 +405,7 @@
                 this.completedCount(); // completed count
                 this.completedPriceCount(); // completed $
                 this.completedCheck();
+                this.arrayTotal()
             },
             complShift(item){
                 this.testingArr.splice(this.testingArr.indexOf(item), 1);
@@ -429,6 +457,7 @@
                 this.testingPriceCount(); // $
                 this.testingCount(); // testing count
                 this.testCheck(); // test check
+                this.arrayTotal()
             },
             toCompleted(item){
                 this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
@@ -471,6 +500,7 @@
                 this.developmentCount(); // dev count
                 this.developmentPriceCount(); // dev $
                 this.devCheck();
+                this.arrayTotal()
             },
             quenedTo(item){
                 this.developmentArr.splice(this.developmentArr.indexOf(item), 1);
@@ -532,6 +562,7 @@
                 this.designCheck();
                 this.designCount(); // design count
                 this.designPriceCount(); // design price
+                this.arrayTotal()
             },
             complMove(item){
                 this.planningArr.splice(this.planningArr.indexOf(item), 1);
@@ -583,11 +614,13 @@
                 this.cardsCount();
                 this.checkArr();
                 this.pricesSum();
+                this.arrayTotal()
             },
             indexHandler(item){
                 this.quened.splice(item, 1);
                 this.quenedCount();
                 this.pricesTotal();
+                this.arrayTotal()
             },
             indexPlanning(item){
                 this.quened.splice(this.quened.indexOf(item), 1);
@@ -774,6 +807,7 @@
             this.testingPriceCount();
             this.completedCount();
             this.completedPriceCount();
+            this.arrayTotal();
         }
     }
 </script>
@@ -800,6 +834,17 @@
         font-size: 18px;
         font-family: 'Montserrat', sans-serif;
         padding: 20px 0 20px 45px;
+
+        /*&:after{
+            content: '';
+            right: -100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            background: #237cc7;
+            width: 100%;
+            top: 0;
+        }*/
 
         span{
             color: white;
