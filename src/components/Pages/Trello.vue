@@ -2,8 +2,14 @@
     <div class="trello-wrap">
         <div class="top-part-page">
             <div>All projects ({{this.projTotal}}) <span>Workflow</span></div>
-            <button @click="filterTesla">Filter Tesla</button>
-            <button @click="filterAmazon">Filter Amazon</button>
+            <div class="select-block">
+                <span>Show projects:</span>
+                <form>
+                    <select class="select" @change="filterHandler" v-model="selectedFilter">
+                        <option v-bind:key="item" v-for="item in selectFilter">{{item}}</option>
+                    </select>
+                </form>
+            </div>
         </div>
         <div class="list-holder">
             <div class="wrapper-list">
@@ -203,109 +209,14 @@
             return {
                 popup: false,
                 projTotal: 0,
-                quened: [
-                    {
-                        project: 'AI development',
-                        client: 'Tesla',
-                        fixed: false,
-                        price: 5000,
-                        id: 1
-                    },
-                    {
-                        project: 'Blockchain integration',
-                        client: 'Tesla',
-                        fixed: false,
-                        price: 2500,
-                        id: 112
-                    },
-                    {
-                        project: 'Chatbot',
-                        client: 'Amazon',
-                        fixed: false,
-                        price: 6500,
-                        id: 13
-                    }
-                ],
-                planningArr : [
-                    {
-                        project: 'Landing page',
-                        client: 'Amazon',
-                        fixed: false,
-                        price: 1000,
-                        id: 14
-                    },
-                    {
-                        project: 'Website',
-                        client: 'Google',
-                        fixed: false,
-                        price: 2000,
-                        id: 100
-                    },
-                    {
-                        project: 'Website',
-                        client: 'Google',
-                        fixed: false,
-                        price: 500,
-                        id: 1121
-                    }
-                ],
-                designArr: [
-                    {
-                        project: 'Logo design',
-                        client: 'Symu.com',
-                        fixed: false,
-                        price: 2000,
-                        id: 19
-                    }
-                ],
-                developmentArr: [
-                    {
-                        project: 'Mobile App',
-                        client: 'Symu.com',
-                        fixed: false,
-                        price: 1500,
-                        id: 111
-                    },
-                    {
-                        project: 'Dashboard',
-                        client: 'Tesla',
-                        fixed: false,
-                        price: 5500,
-                        id: 1114
-                    }
-                ],
-                testingArr: [
-                    {
-                        project: 'Landing page',
-                        client: 'Symu.com',
-                        fixed: false,
-                        price: 1500,
-                        id: 874
-                    }
-                ],
-                completedArr: [
-                    {
-                        project: 'Landing page',
-                        client: 'Symu.com',
-                        fixed: false,
-                        price: 1800,
-                        id: 84
-                    },
-                    {
-                        project: 'New website',
-                        client: 'Amazon',
-                        fixed: false,
-                        price: 3500,
-                        id: 8421
-                    },
-                    {
-                        project: 'Dashboard',
-                        client: 'Amazon',
-                        fixed: false,
-                        price: 3500,
-                        id: 821
-                    }
-                ],
+                selectFilter: ['Symu', 'Google', 'Tesla', 'Amazon', 'All'],
+                selectedFilter: 'All',
+                quened: [],
+                planningArr : [],
+                designArr: [],
+                developmentArr: [],
+                testingArr: [],
+                completedArr: [],
                 planningTot: 0,
                 totalQuen: 0,
                 editable:true,
@@ -330,21 +241,125 @@
             orderList () {
                 this.list = this.list.sort((one,two) =>{return one.order-two.order; })
             },
+            filterHandler(){
+                let selected = this.selectedFilter;
+
+                if (selected === 'Symu'){
+                    this.symuFilter();
+                } else if (selected === 'Google') {
+                    this.filterGoogle();
+                } else if (selected === 'Tesla') {
+                    this.filterTesla();
+                } else if (selected === 'Amazon') {
+                    this.filterAmazon();
+                } else if (selected === 'All') {
+                    this.getStore();
+                }
+            },
+            getStore(){
+                this.quened = this.$store.state.quenedStore;
+                this.planningArr = this.$store.state.planningStore;
+                this.designArr = this.$store.state.designStore;
+                this.developmentArr = this.$store.state.developmentStore;
+                this.testingArr = this.$store.state.testingStore;
+                this.completedArr = this.$store.state.completedStore;
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+                this.arrayTotal();
+             },
+            symuFilter(){
+                this.quened = this.$store.state.quenedStore.filter(item => item.client === 'Symu.com');
+                this.planningArr = this.$store.state.planningStore.filter(item => item.client === 'Symu.com');
+                this.designArr = this.$store.state.designStore.filter(item => item.client === 'Symu.com');
+                this.developmentArr = this.$store.state.developmentStore.filter(item => item.client === 'Symu.com');
+                this.testingArr = this.$store.state.testingStore.filter(item => item.client === 'Symu.com');
+                this.completedArr = this.$store.state.completedStore.filter(item => item.client === 'Symu.com');
+                this.arrayTotal();
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+            },
+            filterGoogle(){
+                this.quened = this.$store.state.quenedStore.filter(item => item.client === 'Google');
+                this.planningArr = this.$store.state.planningStore.filter(item => item.client === 'Google');
+                this.designArr = this.$store.state.designStore.filter(item => item.client === 'Google');
+                this.developmentArr = this.$store.state.developmentStore.filter(item => item.client === 'Google');
+                this.testingArr = this.$store.state.testingStore.filter(item => item.client === 'Google');
+                this.completedArr = this.$store.state.completedStore.filter(item => item.client === 'Google');
+                this.arrayTotal();
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
+            },
             filterTesla(){
-                this.quened = this.quened.filter(item => item.client === 'Tesla');
-                this.planningArr = this.planningArr.filter(item => item.client === 'Tesla');
-                this.designArr = this.designArr.filter(item => item.client === 'Tesla');
-                this.developmentArr = this.developmentArr.filter(item => item.client === 'Tesla');
-                this.testingArr = this.testingArr.filter(item => item.client === 'Tesla');
-                this.completedArr = this.completedArr.filter(item => item.client === 'Tesla');
+                this.quened = this.$store.state.quenedStore.filter(item => item.client === 'Tesla');
+                this.planningArr = this.$store.state.planningStore.filter(item => item.client === 'Tesla');
+                this.designArr = this.$store.state.designStore.filter(item => item.client === 'Tesla');
+                this.developmentArr = this.$store.state.developmentStore.filter(item => item.client === 'Tesla');
+                this.testingArr = this.$store.state.testingStore.filter(item => item.client === 'Tesla');
+                this.completedArr = this.$store.state.completedStore.filter(item => item.client === 'Tesla');
+                this.arrayTotal();
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
             },
             filterAmazon(){
-                this.quened = this.quened.filter(item => item.client === 'Amazon');
-                this.planningArr = this.planningArr.filter(item => item.client === 'Amazon');
-                this.designArr = this.designArr.filter(item => item.client === 'Amazon');
-                this.developmentArr = this.developmentArr.filter(item => item.client === 'Amazon');
-                this.testingArr = this.testingArr.filter(item => item.client === 'Amazon');
-                this.completedArr = this.completedArr.filter(item => item.client === 'Amazon');
+                this.quened = this.$store.state.quenedStore.filter(item => item.client === 'Amazon');
+                this.planningArr = this.$store.state.planningStore.filter(item => item.client === 'Amazon');
+                this.designArr = this.$store.state.designStore.filter(item => item.client === 'Amazon');
+                this.developmentArr = this.$store.state.developmentStore.filter(item => item.client === 'Amazon');
+                this.testingArr = this.$store.state.testingStore.filter(item => item.client === 'Amazon');
+                this.completedArr = this.$store.state.completedStore.filter(item => item.client === 'Amazon');
+                this.arrayTotal();
+                this.pricesSum(); // planning $
+                this.cardsCount(); // planning count
+                this.pricesTotal(); //quened $
+                this.quenedCount(); // quened tot
+                this.designCount(); // design count
+                this.designPriceCount(); // design price
+                this.developmentCount(); // dev count
+                this.developmentPriceCount(); // dev $
+                this.completedCount(); // completed count
+                this.completedPriceCount(); // completed $
+                this.testingPriceCount(); // $
+                this.testingCount(); // testing count
             },
             arrayTotal(){
                 let quenedArr = this.quened.length;
@@ -679,12 +694,18 @@
             pricesSum(){
                 this.planningArr.reduce((prev, cur) => {
                     return this.planningTot = prev + cur.price
-                }, 0)
+                }, 0);
+                if(this.planningArr.length < 1){
+                    this.planningTot = 0
+                }
             },
             pricesTotal(){
                 this.quened.reduce((prev, cur) => {
                     return this.totalQuen = prev + cur.price
-                }, 0)
+                }, 0);
+                if(this.quened.length < 1){
+                    this.totalQuen = 0
+                }
             },
             checkArr(){
                 if(this.planningArr.length === 0) {
@@ -728,7 +749,10 @@
             designPriceCount(){
                 this.designArr.reduce((prev, cur) => {
                     return this.designTot = prev + cur.price
-                }, 0)
+                }, 0);
+                if(this.designArr.length < 1){
+                    this.designTot = 0
+                }
             },
             developmentCount(){
                 return this.developObj = this.developmentArr.length
@@ -736,7 +760,10 @@
             developmentPriceCount(){
                 this.developmentArr.reduce((prev, cur) => {
                     return this.developTot = prev + cur.price
-                }, 0)
+                }, 0);
+                if(this.developmentArr.length < 1){
+                    this.developTot = 0
+                }
             },
             testingCount(){
                 return this.testingObj = this.testingArr.length
@@ -744,7 +771,10 @@
             testingPriceCount(){
                 this.testingArr.reduce((prev, cur) => {
                     return this.testingTot = prev + cur.price
-                }, 0)
+                }, 0);
+                if(this.testingArr.length < 1){
+                    this.testingTot = 0
+                }
             },
             completedCount(){
                 return this.completedObj = this.completedArr.length
@@ -752,7 +782,10 @@
             completedPriceCount(){
                 this.completedArr.reduce((prev, cur) => {
                     return this.completedTot = prev + cur.price
-                }, 0)
+                }, 0);
+                if(this.completedArr.length < 1){
+                    this.completedTot = 0
+                }
             }
         },
         computed: {
@@ -808,6 +841,7 @@
             this.completedCount();
             this.completedPriceCount();
             this.arrayTotal();
+            this.getStore();
         }
     }
 </script>
@@ -823,28 +857,39 @@
         position: relative;
     }
 
+    .select-block{
+        padding-right: 100px;
+        display: flex;
+        align-items: center;
+
+        .select{
+            width: 120px;
+            border-radius: 10px;
+            font-size: 14px;
+            border: 1px solid #ffff;
+            background: #237cc7;
+            color: #ffff;
+            padding: 3px 8px;
+        }
+
+        span{
+            font-size: 16px;
+            padding-right: 15px;
+        }
+    }
+
     .top-part-page{
         background: #237cc7;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        display: block;
+        display: flex;
+        justify-content: space-between;
         width: 100%;
         font-size: 18px;
         font-family: 'Montserrat', sans-serif;
         padding: 20px 0 20px 45px;
-
-        /*&:after{
-            content: '';
-            right: -100%;
-            height: 100%;
-            display: block;
-            position: absolute;
-            background: #237cc7;
-            width: 100%;
-            top: 0;
-        }*/
 
         span{
             color: white;
