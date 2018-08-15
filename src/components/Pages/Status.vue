@@ -16,6 +16,19 @@
                     <div class="time">
                         <p>{{item.spentHours}} hours</p>
                     </div>
+                    <div class="progress-item">
+                        <span>{{item.progress}}</span>
+                        <div class="progress-bar">
+                            <div class="progress-bar-inner"></div>
+                        </div>
+                    </div>
+                    <div class="development">
+                        <p>{{item.status}}</p>
+                    </div>
+                    <div class="asigned">
+                        <p>{{item.assignedName}}</p>
+                        <span>{{item.assignedPosition}}</span>
+                    </div>
                 </div>
             </transition-group>
         </draggable>
@@ -32,6 +45,7 @@
         },
         data(){
             return{
+                width: 0,
                 status: [],
                 editable:true,
                 isDragging: false,
@@ -100,8 +114,9 @@
             cursor: move;
             display: flex;
             align-items: center;
+            justify-content: space-between;
 
-            .project-title{
+            .project-title, .asigned{
                 p{
                     margin-top: 0;
                     color: #ffff;
@@ -114,13 +129,40 @@
                 }
             }
 
-            .value, .time{
+            .value, .time, .development{
                 p{
                     color: #ffff;
                 }
             }
 
+            .progress-item{
+                flex-basis: 285px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
+                span{
+                    color: #ffff;
+                }
+
+                .progress-bar{
+                    position: relative;
+                    max-width: 235px;
+                    width: 100%;
+                    border-radius: 2px;
+                    height: 7px;
+                    background: #585c70;
+
+                    .progress-bar-inner{
+                        position: absolute;
+                        left: 0;
+                        height: 100%;
+                        background: #2196f3;
+                        border-radius: 2px;
+                        width: 80%;
+                    }
+                }
+            }
         }
     }
 
