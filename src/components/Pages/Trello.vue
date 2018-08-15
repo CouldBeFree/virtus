@@ -209,7 +209,7 @@
             return {
                 popup: false,
                 projTotal: 0,
-                selectFilter: ['Symu', 'Google', 'Tesla', 'Amazon', 'All'],
+                selectFilter: ['All', 'Symu', 'Google', 'Tesla', 'Amazon'],
                 selectedFilter: 'All',
                 quened: [],
                 planningArr : [],

@@ -108,6 +108,96 @@ export default new Vuex.Store({
                 price: 3500,
                 id: 821
             }
+        ],
+        statusArr: [
+            {
+                projectName: 'New website',
+                company: 'Microsoft',
+                value: 2300,
+                spentHours: 40,
+                progress: 70,
+                status: 'Development',
+                assignedName: 'Dominic Lynton',
+                assignedPosition: 'Front End Dev',
+                id: 1
+            },
+            {
+                projectName: 'Landing page',
+                company: 'Google',
+                value: 1250,
+                spentHours: 7,
+                progress: 15,
+                status: 'Planning',
+                assignedName: 'Lyan Roach',
+                assignedPosition: 'UX/UI Designer',
+                id: 2
+            },
+            {
+                projectName: 'New dashboard',
+                company: 'Symu.co',
+                value: 5100,
+                spentHours: 56,
+                progress: 90,
+                status: 'Design',
+                assignedName: 'Michelle Stewart',
+                assignedPosition: 'Account',
+                id: 3
+            },
+            {
+                projectName: 'New logo',
+                company: 'JCD.pl',
+                value: 900,
+                spentHours: 10,
+                progress: 40,
+                status: 'Design',
+                assignedName: 'Lyan Roach',
+                assignedPosition: 'UX/UI Designer',
+                id: 4
+            },
+            {
+                projectName: 'Landing page',
+                company: 'Symu.co',
+                value: 1500,
+                spentHours: 0,
+                progress: 0,
+                status: 'Quened',
+                assignedName: 'Michelle Stewart',
+                assignedPosition: 'Account',
+                id: 5
+            },
+            {
+                projectName: 'Landing page',
+                company: 'Symu.co',
+                value: 1500,
+                spentHours: 0,
+                progress: 0,
+                status: 'Quened',
+                assignedName: 'Michelle Stewart',
+                assignedPosition: 'Account',
+                id: 6
+            },
+            {
+                projectName: 'Mobile app',
+                company: 'Facebook',
+                value: 4300,
+                spentHours: 59,
+                progress: 100,
+                status: 'Completed',
+                assignedName: 'Michelle Stewart',
+                assignedPosition: 'Account',
+                id: 7
+            },
+            {
+                projectName: 'Wordpress theme',
+                company: 'Themeforest',
+                value: 1300,
+                spentHours: 30,
+                progress: 100,
+                status: 'Completed',
+                assignedName: 'Michelle Stewart',
+                assignedPosition: 'Account',
+                id: 8
+            }
         ]
     },
     mutations: {
