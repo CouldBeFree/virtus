@@ -137,7 +137,7 @@ export default new Vuex.Store({
                 company: 'Symu.co',
                 value: 5100,
                 spentHours: 56,
-                progress: 90,
+                progress: 100,
                 status: 'Design',
                 assignedName: 'Michelle Stewart',
                 assignedPosition: 'Account',
@@ -166,6 +166,17 @@ export default new Vuex.Store({
                 id: 5
             },
             {
+                projectName: 'Wordpress theme',
+                company: 'Themeforest',
+                value: 1300,
+                spentHours: 30,
+                progress: 100,
+                status: 'Completed',
+                assignedName: 'Michelle Stewart',
+                assignedPosition: 'Account',
+                id: 8
+            },
+            {
                 projectName: 'Landing page',
                 company: 'Symu.co',
                 value: 1500,
@@ -186,17 +197,6 @@ export default new Vuex.Store({
                 assignedName: 'Michelle Stewart',
                 assignedPosition: 'Account',
                 id: 7
-            },
-            {
-                projectName: 'Wordpress theme',
-                company: 'Themeforest',
-                value: 1300,
-                spentHours: 30,
-                progress: 100,
-                status: 'Completed',
-                assignedName: 'Michelle Stewart',
-                assignedPosition: 'Account',
-                id: 8
             }
         ]
     },
