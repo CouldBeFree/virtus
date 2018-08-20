@@ -198,6 +198,44 @@ export default new Vuex.Store({
                 assignedPosition: 'Account',
                 id: 7
             }
+        ],
+        graphArr: [
+            {
+                id:1,
+                name: 'Lorem ipsum dolor sit amet tetur adipisicing elit',
+                time: 6,
+                views: 358000,
+                visitors: 58200,
+                ctr: 25,
+                cpc: 3.02,
+                cpv: 2.51,
+                cpm: 28.35,
+                status: 'Active'
+            },
+            {
+                id:2,
+                name: 'Sed do eiusmod tempor incididunt ut labo',
+                time: 7,
+                views: 1200,
+                visitors: 800,
+                ctr: 10,
+                cpc: 8.45,
+                cpv: 6.15,
+                cpm: 45.22,
+                status: 'Disable'
+            },
+            {
+                id:3,
+                name: 'Consectetur adipisicing elit sed do eiusmod tempor',
+                time: 3,
+                views: 69000,
+                visitors: 7300,
+                ctr: 19,
+                cpc: 6.22,
+                cpv: 3.90,
+                cpm: 37.80,
+                status: 'Active'
+            }
         ]
     },
     mutations: {
