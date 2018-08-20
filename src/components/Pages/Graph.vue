@@ -7,15 +7,7 @@
             <table>
                 <thead>
                 <tr class="header">
-                    <th @click="sort('campaign')">Campaign</th>
-                    <th @click="sort('time')">Time</th>
-                    <th @click="sort('views')">Views</th>
-                    <th @click="sort('visitors')">Visitors</th>
-                    <th @click="sort('ctr')">CTR</th>
-                    <th @click="sort('cpc')">CPC</th>
-                    <th @click="sort('cpv')">CPV</th>
-                    <th @click="sort('cpm')">CPM</th>
-                    <th @click="sort('status')">Status</th>
+                    <th v-for="(sortType, index) in sortingTypes" @click="sort(sortType, index)" class="initial" :class="{active: index === activeIndex}" :key="sortType">{{sortType}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,18 +35,20 @@
             return{
                 data: [],
                 currentSort:'campaign',
-                currentSortDir:'asc'
+                currentSortDir:'asc',
+                isActive: false,
+                sortingTypes: ['campaign', 'time', 'views', 'visitors', 'ctr', 'cpc', 'cpv', 'cpm', 'status'],
+                activeIndex: null
             }
         },
         methods:{
             getData(){
                 this.data = this.$store.state.graphArr
             },
-            sort(s) {
-                //if s == current sort, reverse
+            sort(s, index) {
+                this.activeIndex = index;
                 if(s === this.currentSort) {
-                    this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
-                }
+                    this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';}
                 this.currentSort = s;
             }
         },
