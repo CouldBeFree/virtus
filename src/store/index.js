@@ -236,6 +236,48 @@ export default new Vuex.Store({
                 cpm: 37.80,
                 status: 'Active'
             }
+        ],
+        usersChat: [
+            {
+                avatar: '',
+                name: 'Lyall Roach',
+                position: 'UX/UI Designer',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                email: 'lyallroach@gmail.com',
+                phone: +48500400300,
+                adress: '65 Lorem St, Warsaw, PL',
+                organisation: 'Symu.co'
+            },
+            {
+                avatar: '',
+                name: 'Alex Bower',
+                position: 'Frontend Developer',
+                description: 'Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Curabitur ullamcorper ultricies nisi.',
+                email: 'dev@gmail.com',
+                phone: +18124433743,
+                adress: 'Des Plaines, IL 60016',
+                organisation: 'Amazon.com'
+            },
+            {
+                avatar: '',
+                name: 'Francis Jonson',
+                position: 'Backend Developer',
+                description: 'Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.',
+                email: 'franc@gmail.com',
+                phone: +3328935487,
+                adress: 'Kennesaw, GA 30144',
+                organisation: 'Tesk.org'
+            },
+            {
+                avatar: '',
+                name: 'Bradley Stevenson',
+                position: 'Full Stack Developer',
+                description: 'Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.',
+                email: 'atic@gmail.com',
+                phone: +9558612954,
+                adress: 'Rockville Centre, NY 11570',
+                organisation: 'Tesk.org'
+            }
         ]
     },
     mutations: {

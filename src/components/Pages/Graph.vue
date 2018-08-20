@@ -7,7 +7,7 @@
             <table>
                 <thead>
                 <tr class="header">
-                    <th v-for="(sortType, index) in sortingTypes" @click="sort(sortType, index)" class="initial" :class="{active: index === activeIndex}" :key="sortType">{{sortType.charAt(0).toUpperCase()+ sortType.slice(1)}}</th>
+                    <th v-for="(sortType, index) in sortingTypes" @click="sort(sortType, index)" class="initial" :class="{active: index === activeIndex}" :key="sortType">{{sortType.charAt(0).toUpperCase()+ sortType.slice(1)}}<span class="icon-down-arrow"></span></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -89,8 +89,21 @@
             border-collapse: collapse;
             width: 100%;
 
+            .icon-down-arrow{
+                position: relative;
+                top: 3px;
+                left: 5px;
+                transition: .4s;
+                display: inline-block;
+            }
+
             .active{
                 color: white;
+
+                .icon-down-arrow{
+                    transform: rotateZ(180deg);
+                    transition: .4s;
+                }
             }
         }
 
