@@ -7,7 +7,7 @@
             <table>
                 <thead>
                 <tr class="header">
-                    <th v-for="(sortType, index) in sortingTypes" @click="sort(sortType, index)" class="initial" :class="{active: index === activeIndex}" :key="sortType">{{sortType}}</th>
+                    <th v-for="(sortType, index) in sortingTypes" @click="sort(sortType, index)" class="initial" :class="{active: index === activeIndex}" :key="sortType">{{sortType.charAt(0).toUpperCase()+ sortType.slice(1)}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -88,6 +88,10 @@
         table{
             border-collapse: collapse;
             width: 100%;
+
+            .active{
+                color: white;
+            }
         }
 
         td{
