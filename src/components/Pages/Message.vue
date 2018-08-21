@@ -2,31 +2,49 @@
     <div class="chat-wrap">
         <div class="users-list">
             <ul class="users-holder">
-                <li class="users-holder-item" v-for="item in usersArr" :key="item.id">
+                <li class="users-holder-item" v-for="item in usersArr" :key="item.id" @click="getObject(item)">
                     <div class="top-part"><span class="name">{{item.name}}</span></div>
                     <div class="bottom-part">{{item.lastMessage}}</div>
                 </li>
             </ul>
         </div>
-        <div class="chat-window"></div>
-        <div class="user-info"></div>
+        <div class="chat-window">
+            <chatWindow :object="currentObj"></chatWindow>
+        </div>
+        <div class="user-info">
+            <userItem :object="currentObj"></userItem>
+        </div>
     </div>
 </template>
 
 <script>
+    import userItem from './Message/messageTarget'
+    import chatWindow from './Message/chatWindow'
+
     export default {
         data () {
             return {
-                usersArr: []
+                usersArr: [],
+                currentObj: {}
             }
+        },
+        components:{
+            userItem,
+            chatWindow
         },
         methods:{
             getUsers(){
                 this.usersArr = this.$store.state.usersChat;
+            },
+            getObject(obj){
+                this.currentObj = obj;
             }
         },
         created(){
             this.getUsers();
+        },
+        mounted(){
+            this.currentObj = this.usersArr[2]
         }
     }
 </script>
@@ -44,14 +62,18 @@
         .users-list{
             flex-basis: 30%;
             border: 1px solid red;
-            padding-left: 20px;
-            padding-right: 10px;
             box-sizing: border-box;
 
             .users-holder{
                 list-style-type: none;
                 padding: 0;
                 margin: 0;
+
+                &-item{
+                    border-bottom: 1px solid #505464;
+                    padding: 30px 10px;
+                    cursor: pointer;
+                }
             }
 
             .name{
