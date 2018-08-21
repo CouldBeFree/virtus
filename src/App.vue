@@ -19,9 +19,6 @@
               <router-link :to="'/'"><span class="icon-home"></span></router-link>
             </li>
             <li>
-              <router-link :to="'/users'"><span class="icon-list"></span></router-link>
-            </li>
-            <li>
               <router-link :to="'/trello'"><span class="icon-group"></span></router-link>
             </li>
             <li>

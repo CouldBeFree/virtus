@@ -246,7 +246,10 @@ export default new Vuex.Store({
                 email: 'lyallroach@gmail.com',
                 phone: +48500400300,
                 adress: '65 Lorem St, Warsaw, PL',
-                organisation: 'Symu.co'
+                organisation: 'Symu.co',
+                id: 1,
+                unread: false,
+                lastMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm.'
             },
             {
                 avatar: '',
@@ -256,7 +259,10 @@ export default new Vuex.Store({
                 email: 'dev@gmail.com',
                 phone: +18124433743,
                 adress: 'Des Plaines, IL 60016',
-                organisation: 'Amazon.com'
+                organisation: 'Amazon.com',
+                id: 2,
+                unread: true,
+                lastMessage: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.'
             },
             {
                 avatar: '',
@@ -266,7 +272,10 @@ export default new Vuex.Store({
                 email: 'franc@gmail.com',
                 phone: +3328935487,
                 adress: 'Kennesaw, GA 30144',
-                organisation: 'Tesk.org'
+                organisation: 'Tesk.org',
+                id: 3,
+                unread: false,
+                lastMessage: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
             },
             {
                 avatar: '',
@@ -276,7 +285,10 @@ export default new Vuex.Store({
                 email: 'atic@gmail.com',
                 phone: +9558612954,
                 adress: 'Rockville Centre, NY 11570',
-                organisation: 'Tesk.org'
+                organisation: 'Tesk.org',
+                id: 4,
+                unread: true,
+                lastMessage: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.'
             }
         ]
     },
