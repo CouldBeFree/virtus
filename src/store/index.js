@@ -250,7 +250,7 @@ export default new Vuex.Store({
                 id: 1,
                 unread: false,
                 lastMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm.',
-                messages: ['Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ulla pariatur. est laborum.', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ulla pariatur. est laborum.', 'Ut enim ad minim veniam,ex ea commo!', 'Ut enim ad minim']
+                messages: ['Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ulla pariatur. est laborum.', 'Ut enim ad minim veniam,ex ea commo!', 'Ut enim ad minim']
             },
             {
                 avatar: '',
@@ -264,7 +264,7 @@ export default new Vuex.Store({
                 id: 2,
                 unread: true,
                 lastMessage: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.',
-                messages: ['Morbi rutrum, nisi ac consectetur molestie', 'Donec eget leo lectus. Aliquam convallis vulputate nisl vel sodales.', 'Aenean gravida scelerisque sagittis', 'Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.', 'Sed imperdiet dolor nibh, a sollicitudin nibh tristique a', ' Curabitur congue rutrum porttitor']
+                messages: ['Morbi rutrum, nisi ac consectetur molestie', 'Donec eget leo lectus. Aliquam convallis vulputate nisl vel sodales.', 'Aenean gravida scelerisque sagittis', 'Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.', 'Sed imperdiet dolor nibh, a sollicitudin nibh tristique a', ' Curabitur congue rutrum porttitor', 'Vivamus porta, nunc sed tempor malesuada']
             },
             {
                 avatar: '',
@@ -292,7 +292,7 @@ export default new Vuex.Store({
                 id: 4,
                 unread: true,
                 lastMessage: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.',
-                messages: ['Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.', 'Cras ipsum tellus, vulputate at dui eget, sodales consectetur sapien', 'Morbi rutrum, nisi ac consectetur molestie, libero leo dictum nulla, ac congue est leo et nisl.', 'Aliquam ex massa, scelerisque id ligula quis, porta sodales diam.']
+                messages: ['Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.', 'Cras ipsum tellus, vulputate at dui eget, sodales consectetur sapien', 'Morbi rutrum, nisi ac consectetur molestie, libero leo dictum nulla, ac congue est leo et nisl.', 'Aliquam ex massa, scelerisque id ligula quis, porta sodales diam.', 'Pellentesque convallis laoreet elit nec blandit. ']
             }
         ]
     },
