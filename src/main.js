@@ -10,7 +10,6 @@ import Graph from './components/Pages/Graph'
 import Trello from './components/Pages/Trello'
 import Status from './components/Pages/Status'
 import Home from './components/Pages/Home'
-//import Card from './components/Trello/Card-quened'
 import Users from './components/Pages/Users'
 import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
@@ -18,6 +17,7 @@ import store from './store/index'
 import 'chart.js'
 import 'hchs-vue-charts'
 import VueChartJs from 'vue-chartjs';
+import VueChatScroll from 'vue-chat-scroll'
 
 Vue.use(window.VueCharts);
 Vue.use(Vuelidate);
@@ -26,6 +26,7 @@ Vue.use(VueRouter);
 Vue.use(VCalendar, {
     locale: 'en'
 });
+Vue.use(VueChatScroll);
 
 Vue.component('message', Message);
 Vue.component('graph', Graph);

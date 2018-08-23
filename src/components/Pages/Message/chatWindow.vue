@@ -1,9 +1,9 @@
 <template>
     <div class="window-item">
-        <ul class="chat-holder">
+        <ul class="chat-holder" v-chat-scroll>
             <li v-for="item in object.messages" :key="item.id">
-                <p>{{item.message}}</p>
-                <p>{{item.date}}{{item.time}}</p>
+                <p class="message">{{item.message}}</p>
+                <p class="time">{{item.date}}{{item.time}}</p>
             </li>
         </ul>
         <input type="text" v-model="inputVal" @keyup.enter="getInput">
@@ -25,11 +25,12 @@
                 let random = Math.floor(Math.random() * (11 - 1)) + 1;
                 let randomID = Math.random();
                 let currentDate = new Date();
-                let hour = currentDate.getHours();
-                let minute = currentDate.getMinutes();
+                let data = new Date().toLocaleTimeString();
+                let string = 'Today';
                 let message = {
                   message : this.inputVal,
-                  time: `${hour} ${minute}`,
+                  //time: `${hour} ${minute}`,
+                  time: `${string} ${data}`,
                   id: randomID
                 };
                 if(this.inputVal !== '' ) {
@@ -39,12 +40,12 @@
                     let randomRespond = this.respond[random];
                     let randomMessage = {
                         message: randomRespond,
-                        time: `${hour} ${minute}`,
+                        //time: `${hour} ${minute}`,
+                        time: `${string} ${data}`,
                         id: autoID
                     };
                     setTimeout(() => {
                         this.object.messages.push(randomMessage);
-                        console.log(randomRespond);
                     }, 3000)
                 }
             }
@@ -57,7 +58,7 @@
     @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
     .window-item{
-        height: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -65,12 +66,42 @@
         .chat-holder{
             list-style-type: none;
             margin: 0;
-            padding: 0;
             height: 100%;
+            overflow-y: scroll;
+            padding-right: 10px;
+            padding-left: 10px;
 
             li{
+                .message{
+                    background: #404359;
+                    max-width: 400px;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                    border-bottom-right-radius: 15px;
+                    padding: 20px;
+                    display: inline-block;
+                }
+
                 &:nth-child(2n){
                     text-align: right;
+
+                    .message{
+                        max-width: 400px;
+                        padding: 20px;
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px;
+                        border-bottom-left-radius: 15px;
+                        border-bottom-right-radius: 0;
+                        background: #2196f3;
+                        margin-left: auto;
+                        margin-right: 0;
+                        display: inline-block;
+                    }
+                }
+
+                .time{
+                    color: #9095a7;
+                    margin-top: -5px;
                 }
             }
 
