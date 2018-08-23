@@ -250,7 +250,38 @@ export default new Vuex.Store({
                 id: 1,
                 unread: false,
                 lastMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm.',
-                messages: ['Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ulla pariatur. est laborum.', 'Ut enim ad minim veniam,ex ea commo!', 'Ut enim ad minim']
+                messages:[
+                    {
+                        message: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
+                        time: '6 PM',
+                        date: '4 april',
+                        id: 12
+                    },
+                    {
+                        message: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 12313
+                    },
+                    {
+                        message: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ulla pariatur. est laborum.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 13
+                    },
+                    {
+                        message: 'Ut enim ad minim veniam,ex ea commo!',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 13333
+                    },
+                    {
+                        message: 'Ut enim ad minim',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 1123
+                    }
+                ]
             },
             {
                 avatar: '',
@@ -264,7 +295,50 @@ export default new Vuex.Store({
                 id: 2,
                 unread: true,
                 lastMessage: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.',
-                messages: ['Morbi rutrum, nisi ac consectetur molestie', 'Donec eget leo lectus. Aliquam convallis vulputate nisl vel sodales.', 'Aenean gravida scelerisque sagittis', 'Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.', 'Sed imperdiet dolor nibh, a sollicitudin nibh tristique a', ' Curabitur congue rutrum porttitor', 'Vivamus porta, nunc sed tempor malesuada']
+                messages: [
+                    {
+                        message: 'Morbi rutrum, nisi ac consectetur molestie',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 8756
+                    },
+                    {
+                        message: 'Donec eget leo lectus. Aliquam convallis vulputate nisl vel sodales.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 87222
+                    },
+                    {
+                        message: 'Aenean gravida scelerisque sagittis',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 222
+                    },
+                    {
+                        message: 'Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 1211
+                    },
+                    {
+                        message: 'Sed imperdiet dolor nibh, a sollicitudin nibh tristique a',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 54234
+                    },
+                    {
+                        message: 'Curabitur congue rutrum porttitor',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 444
+                    },
+                    {
+                        message: 'Vivamus porta, nunc sed tempor malesuada',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 232323
+                    }
+                ]
             },
             {
                 avatar: '',
@@ -278,7 +352,39 @@ export default new Vuex.Store({
                 id: 3,
                 unread: false,
                 lastMessage: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-                messages: ['Nunc ut iaculis diam, quis porta eros.', 'In tempor leo eleifend, congue sapien eget, feugiat quam.', 'Donec imperdiet, urna sed molestie accumsan, purus tortor ornare ex', 'Etiam et arcu id est congue mattis sed sit amet lectus', 'Donec dapibus sem malesuada orci semper placerat']
+                //messages: [, , , ]
+                messages: [
+                    {
+                        message: 'Nunc ut iaculis diam, quis porta eros.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 45324
+                    },
+                    {
+                        message: 'In tempor leo eleifend, congue sapien eget, feugiat quam.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 412124
+                    },
+                    {
+                        message: 'Donec imperdiet, urna sed molestie accumsan, purus tortor ornare ex',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 44123123
+                    },
+                    {
+                        message: 'Etiam et arcu id est congue mattis sed sit amet lectus',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 44555
+                    },
+                    {
+                        message: 'Donec dapibus sem malesuada orci semper placerat',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 4498729
+                    }
+                ]
             },
             {
                 avatar: '',
@@ -292,7 +398,39 @@ export default new Vuex.Store({
                 id: 4,
                 unread: true,
                 lastMessage: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.',
-                messages: ['Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.', 'Cras ipsum tellus, vulputate at dui eget, sodales consectetur sapien', 'Morbi rutrum, nisi ac consectetur molestie, libero leo dictum nulla, ac congue est leo et nisl.', 'Aliquam ex massa, scelerisque id ligula quis, porta sodales diam.', 'Pellentesque convallis laoreet elit nec blandit. ']
+                //messages: [, , , , ],
+                messages:[
+                    {
+                        message: 'Maecenas sodales volutpat sem, nec mollis diam ullamcorper et.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 2
+                    },
+                    {
+                        message: 'Cras ipsum tellus, vulputate at dui eget, sodales consectetur sapien',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 121
+                    },
+                    {
+                        message: 'Morbi rutrum, nisi ac consectetur molestie, libero leo dictum nulla, ac congue est leo et nisl.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 335
+                    },
+                    {
+                        message: 'Aliquam ex massa, scelerisque id ligula quis, porta sodales diam.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 1233
+                    },
+                    {
+                        message: 'Pellentesque convallis laoreet elit nec blandit.',
+                        time: '7 PM',
+                        date: '4 april',
+                        id: 89672
+                    }
+                ]
             }
         ]
     },
