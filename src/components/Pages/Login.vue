@@ -38,7 +38,7 @@
                         return resp.json()
                     })
                     .then(resp => resp.filter(item => item.email === this.email && item.password === this.password))
-                    .then(res => res.length > 0 ? (this.$router.push('/'), this.$store.commit('logUser')) : this.visible = true);
+                    .then(res => res.length > 0 ? (this.$store.commit('logUser'), this.$router.push('/')) : this.visible = true);
             }
         }
     }
