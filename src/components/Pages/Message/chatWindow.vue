@@ -6,8 +6,7 @@
                 <p class="time">{{item.date}}{{item.time}}</p>
             </li>
         </ul>
-        <input type="text" v-model="inputVal" @keyup.enter="getInput">
-        <button @click="getInput">Click</button>
+        <input type="text" class="input-target" v-model="inputVal" @keyup.enter="getInput" placeholder="Write a message">
     </div>
 </template>
 
@@ -62,6 +61,21 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        overflow: hidden;
+
+        .input-target{
+            border: 1px solid rgba(156, 161, 178, 0.3);
+            background-color: #404359;
+            border-radius: 10px;
+            color: #9ca1b2;
+            letter-spacing: 0.32px;
+            font-size: 16px;
+
+            &:focus{
+                outline: 0;
+                padding: 12px 18px;
+            }
+        }
 
         .chat-holder{
             list-style-type: none;
@@ -70,6 +84,7 @@
             overflow-y: scroll;
             padding-right: 10px;
             padding-left: 10px;
+            width: 100%;
 
             li{
                 .message{

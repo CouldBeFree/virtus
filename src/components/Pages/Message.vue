@@ -61,7 +61,7 @@
 
         .users-list{
             flex-basis: 30%;
-            border: 1px solid red;
+            box-shadow: 0 3px 80px rgba(23, 24, 32, 0.3);
             box-sizing: border-box;
 
             .users-holder{
@@ -89,12 +89,13 @@
 
         .chat-window{
             flex-basis: 50%;
-            border: 1px solid red;
+            box-shadow: 0 3px 80px rgba(23, 24, 32, 0.3);
         }
 
         .user-info{
-            flex-basis: 17%;
-            border: 1px solid red;
+            flex-basis: 20%;
+            box-shadow: 0 3px 80px rgba(23, 24, 32, 0.3);
+            padding: 0 10px;
         }
     }
 </style>
