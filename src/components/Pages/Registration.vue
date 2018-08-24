@@ -1,11 +1,12 @@
 <template>
     <div class="form-wrap">
-        <h1>Registration</h1>
+        <p>Registration</p>
         <form>
             <input type="email" placeholder="Email" :class="{'invalid': $v.email.$error}" @blur="$v.email.$touch()"  v-model="email">
             <input type="password" placeholder="Password" :class="{'invalid': $v.password.$error}" @blur="$v.password.$touch()" v-model="password">
         </form>
         <button :disabled="$v.$invalid" @click="getUser">Register</button>
+        <p>If u already have account <span class="log" @click="$router.push('/login')">Login</span></p>
         <div class="message" v-show="visible">Registration completed successfully</div>
     </div>
 </template>
@@ -44,27 +45,52 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
     .form-wrap form input.invalid{
         border: 1px solid red;
     }
 
+    .log{
+        color: red;
+        cursor: pointer;
+    }
+
     .form-wrap{
+        font-family: 'Montserrat', sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        flex-basis: calc(100% - 260px);
-        background: #F7F7F8;
+        flex-basis: 100%;
+        background: #2A2C3B;
+
+        p{
+            color: white;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        input{
+            border: 1px solid rgba(156, 161, 178, 0.3);
+            background-color: #404359;
+            border-radius: 10px;
+            color: #9ca1b2;
+            letter-spacing: 0.32px;
+            font-size: 16px;
+            padding: 8px 18px;
+            margin-bottom: 10px;
+        }
     }
 
     .form-wrap button{
         cursor: pointer;
-        background: transparent;
-        border: 1px solid black;
+        background: aliceblue;
+        border: none;
         padding: 5px 20px;
         border-radius: 5px;
+        color: black;
     }
 
     .form-wrap button:focus{
@@ -77,11 +103,11 @@
     }
 
     .form-wrap form input{
-        margin-bottom: 15px;
+        /*margin-bottom: 15px;
         padding: 5px;
         font-size: 14px;
         border-radius: 5px;
-        border: 1px solid black;
+        border: 1px solid black;*/
     }
 
     .form-wrap form input:focus{

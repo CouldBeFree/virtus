@@ -314,8 +314,8 @@
             }
 
             .inbox{
-                max-height: 330px;
-                overflow-y: scroll;
+                width: 100%;
+                height: 100%;
 
                 header{
                     background: #3a3e52;

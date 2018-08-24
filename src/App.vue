@@ -5,10 +5,7 @@
       <div class="right-part">
         <span class="icon-search"></span>
         <span class="icon-alarm"></span>
-        <div class="user-image">
-          <img src="./assets/image.png" alt="user-image">
-          <span class="icon-down-arrow"></span>
-        </div>
+        <button class="log-btn" @click="logout">Logout</button>
       </div>
     </div>
     <div class="wrapper">
@@ -45,6 +42,12 @@
         name: 'app',
         components: {
             HelloWorld
+        },
+        methods:{
+            logout(){
+                this.$router.push('/login');
+                this.$store.commit('unLogUser')
+            }
         }
     }
 </script>
@@ -73,6 +76,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: 'Montserrat', sans-serif;
 
     .right-part{
       display: flex;
@@ -81,11 +85,11 @@
       color: white;
       font-size: 30px;
 
-      .user-image{
-        border-radius: 50%;
-        width: 56px;
-        height: 56px;
-        overflow: hidden;
+      .log-btn{
+        color: white;
+        background: transparent;
+        border: 1px solid white;
+        cursor: pointer;
       }
 
       .icon-alarm{

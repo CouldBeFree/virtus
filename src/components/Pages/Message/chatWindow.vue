@@ -70,10 +70,10 @@
             color: #9ca1b2;
             letter-spacing: 0.32px;
             font-size: 16px;
+            padding: 12px 18px;
 
             &:focus{
                 outline: 0;
-                padding: 12px 18px;
             }
         }
 

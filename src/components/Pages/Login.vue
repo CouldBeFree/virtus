@@ -1,11 +1,11 @@
 <template>
     <div class="form-wrap">
-        <h1>Login</h1>
+        <p>Login</p>
         <form>
             <input type="email" placeholder="Email" :class="{'invalid': $v.email.$error}" @blur="$v.email.$touch()" v-model="email">
             <input type="password" placeholder="Password" :class="{'invalid': $v.password.$error}" @blur="$v.password.$touch()" v-model="password">
         </form>
-        <button :disabled="$v.$invalid" @click="loginUser">Login</button>
+        <button :disabled="$v.$invalid" @click.prevent="loginUser">Login</button>
         <div v-show="visible" class="account-message">Account doe'snt exist</div>
     </div>
 </template>
@@ -17,7 +17,8 @@
             return {
                 email: '',
                 password: '',
-                visible: false
+                visible: false,
+                userData: []
             }
         },
         validations: {
@@ -37,21 +38,40 @@
                         return resp.json()
                     })
                     .then(resp => resp.filter(item => item.email === this.email && item.password === this.password))
-                    .then(res => res.length > 0 ? this.$router.push('/') : this.visible = true);
+                    .then(res => res.length > 0 ? (this.$router.push('/'), this.$store.commit('logUser')) : this.visible = true);
             }
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
     .form-wrap{
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        flex-basis: calc(100% - 260px);
-        background: #F7F7F8;
+        flex-basis: 100%;
+        background: #2A2C3B;
+        font-family: 'Montserrat', sans-serif;
+
+        p{
+            color: white;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        input{
+            border: 1px solid rgba(156, 161, 178, 0.3);
+            background-color: #404359;
+            border-radius: 10px;
+            color: #9ca1b2;
+            letter-spacing: 0.32px;
+            font-size: 16px;
+            padding: 8px 18px;
+            margin-bottom: 10px;
+        }
     }
 
     .account-message{
@@ -61,10 +81,11 @@
 
     .form-wrap button{
         cursor: pointer;
-        background: transparent;
-        border: 1px solid black;
+        background: aliceblue;
+        border: none;
         padding: 5px 20px;
         border-radius: 5px;
+        color: black;
     }
 
     .form-wrap button:focus{
@@ -74,14 +95,6 @@
     .form-wrap form{
         display: flex;
         flex-direction: column;
-    }
-
-    .form-wrap form input{
-        margin-bottom: 15px;
-        padding: 5px;
-        font-size: 14px;
-        border-radius: 5px;
-        border: 1px solid black;
     }
 
     .form-wrap form input:focus{
