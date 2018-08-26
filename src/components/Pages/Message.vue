@@ -44,7 +44,7 @@
             this.getUsers();
         },
         mounted(){
-            this.currentObj = this.usersArr[2]
+            this.currentObj = this.usersArr[2];
         }
     }
 </script>
