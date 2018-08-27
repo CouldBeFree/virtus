@@ -5,7 +5,7 @@
       <div class="right-part">
         <span class="icon-search"></span>
         <span class="icon-alarm"></span>
-        <button class="log-btn" @click="logout">Logout</button>
+        <button class="log-btn" v-if="$route.name !== 'Registration' && $route.name !== 'Login'" @click="logout">Logout</button>
       </div>
     </div>
     <div class="wrapper">
@@ -47,7 +47,13 @@
             logout(){
                 this.$router.push('/login');
                 this.$store.commit('unLogUser')
+            },
+            testRoute(){
+                console.log(this.$route.name);
             }
+        },
+        mounted(){
+            this.testRoute()
         }
     }
 </script>

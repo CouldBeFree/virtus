@@ -42,7 +42,13 @@
                 };
                 this.$http.post('http://localhost:3000/users', userData)
                     .then(response => response.status ? (this.visible = true, setTimeout(() =>{this.$router.push('/login')}, 2000 )) : false);
+            },
+            testRoute(){
+                console.log(this.$route.name);
             }
+        },
+        mounted(){
+            this.testRoute()
         }
     }
 </script>
