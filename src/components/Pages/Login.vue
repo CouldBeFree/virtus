@@ -7,6 +7,7 @@
         </form>
         <button :disabled="$v.$invalid" @click.prevent="loginUser">Login</button>
         <div v-show="visible" class="account-message">Account doe'snt exist</div>
+        <p class="redirect">if you do not have an account, <span @click="$router.push('/registration')">Register</span></p>
     </div>
 </template>
 
@@ -71,6 +72,16 @@
             font-size: 16px;
             padding: 8px 18px;
             margin-bottom: 10px;
+        }
+
+        .redirect{
+            font-size: 16px;
+
+            span{
+                color: red;
+                cursor: pointer;
+                text-transform: uppercase;
+            }
         }
     }
 
