@@ -6,8 +6,10 @@
             <input type="password" placeholder="Password" :class="{'invalid': $v.password.$error}" @blur="$v.password.$touch()" v-model="password">
         </form>
         <button :disabled="$v.$invalid" @click.prevent="loginUser">Login</button>
-        <div v-show="visible" class="account-message">Account doe'snt exist</div>
-        <p class="redirect">if you do not have an account, <span @click="$router.push('/registration')">Register</span></p>
+        <div class="message-block">
+            <div v-show="visible" class="account-message">Account doe'snt exist</div>
+            <p class="redirect">if you do not have an account, <span @click="$router.push('/registration')">Register</span></p>
+        </div>
     </div>
 </template>
 
@@ -57,6 +59,29 @@
         background: #2A2C3B;
         font-family: 'Montserrat', sans-serif;
 
+        .message-block{
+            position: relative;
+
+            .account-message{
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                top: -5px;
+            }
+
+            .redirect{
+                font-size: 16px;
+                padding-top: 24px;
+                margin-top: 0;
+
+                span{
+                    color: red;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                }
+            }
+        }
+
         p{
             color: white;
             font-weight: bold;
@@ -72,16 +97,6 @@
             font-size: 16px;
             padding: 8px 18px;
             margin-bottom: 10px;
-        }
-
-        .redirect{
-            font-size: 16px;
-
-            span{
-                color: red;
-                cursor: pointer;
-                text-transform: uppercase;
-            }
         }
     }
 

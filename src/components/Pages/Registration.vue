@@ -6,8 +6,10 @@
             <input type="password" placeholder="Password" :class="{'invalid': $v.password.$error}" @blur="$v.password.$touch()" v-model="password">
         </form>
         <button :disabled="$v.$invalid" @click="getUser">Register</button>
-        <p>If u already have account <span class="log" @click="$router.push('/login')">Login</span></p>
-        <div class="message" v-show="visible">Registration completed successfully</div>
+        <div class="message-wrap">
+            <div class="message" v-show="visible">Registration completed successfully</div>
+            <p class="info">If u already have account <span class="log" @click="$router.push('/login')">Login</span></p>
+        </div>
     </div>
 </template>
 
@@ -39,7 +41,7 @@
                     password: this.password
                 };
                 this.$http.post('http://localhost:3000/users', userData)
-                    .then(response => response.status ? this.visible = true : false);
+                    .then(response => response.status ? (this.visible = true, setTimeout(() =>{this.$router.push('/login')}, 2000 )) : false);
             }
         }
     }
@@ -50,11 +52,6 @@
 
     .form-wrap form input.invalid{
         border: 1px solid red;
-    }
-
-    .log{
-        color: red;
-        cursor: pointer;
     }
 
     .form-wrap{
@@ -81,6 +78,31 @@
             font-size: 16px;
             padding: 8px 18px;
             margin-bottom: 10px;
+        }
+
+        .message-wrap{
+            position: relative;
+            max-width: 335px;
+            width: 100%;
+            text-align: center;
+
+            .info{
+                font-size: 16px;
+                padding-top: 24px;
+                margin-top: 0;
+            }
+
+            .log{
+                color: red;
+                cursor: pointer;
+            }
+
+            .message{
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                top: 3px;
+            }
         }
     }
 
